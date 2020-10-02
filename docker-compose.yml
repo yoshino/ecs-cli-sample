@@ -17,7 +17,7 @@ services:
       - BUNDLE_PATH=/bundle
     tty: true
     stdin_open: true
-    command: bundle exec rails s -b 0.0.0.0
+    command: bundle exec rake sample_task:exec[hoge,foo,bar]
     volumes:
       - .:/app
       - bundle:/bundle

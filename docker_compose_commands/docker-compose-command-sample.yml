@@ -1,0 +1,5 @@
+version: '3'
+
+services:
+  app:
+    command: bundle exec rake sample_task:exec[override1,override2,override3]
