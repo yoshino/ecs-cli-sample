@@ -1,24 +1,35 @@
 # README
+## The case: You want to pass arguments to ECS task
+```
+$ ./bin/exec_ecs_cli.sh comp1 comp2 comp3
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## vs docker-compose
+In docker-compose, you can override file,
 
-Things you may want to cover:
+```
+$ docker-compose -f docker-compose.yml -f docker_compose_commands/docker-compose-command-sample.yml run app
+```
 
-* Ruby version
+But ecs-cli does not have this syntax.
 
-* System dependencies
+So, if you want to override commands, you may use ENV.
 
-* Configuration
+## Setup
+### 1: setup your aws profile
 
-* Database creation
+edit `terraform/variables.tf`
 
-* Database initialization
+### 2: setup aws resources
 
-* How to run the test suite
+```
+$ cd terraform
+$ terraform apply
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### 3: setup ECR
 
-* Deployment instructions
-
-* ...
+```
+$ docker build -t ecs-cli-task .
+$ ecs-cli push --aws-profile <YOUR_PROFILE> --verbose ecs-cli-test
+```

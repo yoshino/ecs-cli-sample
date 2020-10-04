@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  test-ecs-cli:
+    image: ${DOCKER_REGISTRY}ecs-cli-test:latest
+    working_dir: "/app"
+    command: bundle exec rake sample_task:exec[${HOGE},${FOO},${BAR}]
+    ports:
+      - "3000:3000"
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: test
+        awslogs-region: ap-northeast-1
+        awslogs-stream-prefix: ecs-cli-test

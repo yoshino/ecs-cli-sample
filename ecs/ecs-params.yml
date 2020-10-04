@@ -1,0 +1,27 @@
+version: 1
+task_definition:
+  task_execution_role: ecs-task-execution-role
+  ecs_network_mode: awsvpc
+  task_size:
+    mem_limit: 0.5GB
+    cpu_limit: 256
+
+  # You can use SSM like this(task_execution_role needs the right to read)
+  #services:
+  #  test-ecs-cli:
+  #    secrets:
+  #      - value_from: /common/DATABASE_HOST
+  #        name: DATABASE_HOST
+  #      - value_from: /common/DATABASE_USERNAME
+  #        name: DATABASE_USERNAME
+  #      - value_from: /common/DATABASE_PASSWORD
+  #        name: DATABASE_PASSWORD
+
+run_params:
+  network_configuration:
+    awsvpc_configuration:
+      subnets:
+        - $SUBNET
+      security_groups:
+        - $SECURITY_GROUP
+      assign_public_ip: ENABLED
